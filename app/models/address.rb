@@ -1,20 +1,14 @@
 class Address
   include Mongoid::Document
 
-  attr_accessor :city, :state, :location
+#  attr_accessor :city, :state, :location
 
   field :city, type: String
   field :state, type: String
   field :location, as: :loc, type: Point
 
-  def initialize(city, state, loc)
-  	@city = city
-  	@state = state
-  	@location = loc
-  end
-
   def mongoize
-  	{city: @city, state: @state, loc: @location.mongoize}
+  	{city: self.city, state: self.state, loc: self.location.mongoize}
   end
 
   def self.mongoize(input)
@@ -33,7 +27,7 @@ class Address
   		city = input[:city]
   		state = input[:state]
   		loc = Point.new(input[:loc][:coordinates][0],input[:loc][:coordinates][1])
-  		address = Address.new(city, state, loc)
+  		address = Address.new(city: city, state: state, loc: loc)
   		return address
   	when Address then input
   	end

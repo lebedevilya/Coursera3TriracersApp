@@ -6,6 +6,8 @@ class Entrant
   store_in collection: 'results'
 
   embeds_many :results, class_name: 'LegResult', order: [:"event.o".asc], after_add: :update_total
+  embeds_one :race, class_name: 'RaceRef'
+  embeds_one :racer, class_name: 'RacerInfo'
 
   field :bib, type: Integer
   field :secs, type: Float
@@ -19,5 +21,9 @@ class Entrant
   	  sum += res.secs
   	end
     self.secs=sum
+  end
+
+  def the_race
+  	race.race
   end
 end

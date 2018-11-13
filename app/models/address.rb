@@ -26,7 +26,7 @@ class Address
   		#puts input.inspect
   		city = input[:city]
   		state = input[:state]
-  		loc = Point.new(input[:loc][:coordinates][0],input[:loc][:coordinates][1])
+  		loc = Point.new(input[:loc][:coordinates][0],input[:loc][:coordinates][1]) if input[:loc]
   		address = Address.new(city: city, state: state, loc: loc)
   		return address
   	when Address then input
